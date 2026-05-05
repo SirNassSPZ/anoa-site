@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ANOA — La confiance au bout des doigts</title>
+<meta name="description" content="ANOA — Une spatule, pensée autrement. La confiance au bout des doigts." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+/* ========================================================================
+   ANOA — Full Site (self-contained, Figma-faithful)
+   ======================================================================== */
+
+@font-face {
+  font-family: "American Typewriter";
+  src: url("Anoa/fonts/american-typewriter.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Core palette */
+  --color-terre-cuite:      #77441f;
+  --color-terre-cuite-95:   #8a5128;
+  --color-terre-cuite-110:  #66391a;
+  --color-terre-cuite-soft: #b07a55;
+  --color-terre-cuite-tint: #e8d6c7;
+
+  --color-creme:            #FAF6F0;
+  --color-creme-deep:       #F2EBDF;
+  --color-creme-warm:       #ECE2D2;
+
+  --color-noir:             #1a1a1a;
+  --color-noir-soft:        #3b332e;
+  --color-noir-mute:        #6b5e54;
+
+  --color-golden-batter:    #E8D1A7;
+  --color-olive-harvest:    #9D9167;
+  --color-linen:            #d9c8b1;
+  --color-sand:             #c9b193;
+  --color-bark:             #4a2e1a;
+
+  /* Semantic */
+  --bg:            var(--color-creme);
+  --bg-deep:       var(--color-creme-deep);
+  --bg-band:       var(--color-creme-warm);
+  --surface:       #ffffff;
+  --surface-ink:   var(--color-noir);
+
+  --fg-1:          var(--color-noir);
+  --fg-2:          var(--color-noir-soft);
+  --fg-3:          var(--color-noir-mute);
+  --fg-on-primary: var(--color-creme);
+
+  --primary:       var(--color-terre-cuite);
+  --primary-hover: var(--color-terre-cuite-110);
+  --primary-soft:  var(--color-terre-cuite-soft);
+  --primary-tint:  var(--color-terre-cuite-tint);
+
+  --border:        #e3d8c7;
+  --border-strong: #c9b89c;
+  --divider:       #ead9c2;
+
+  /* Type */
+  --font-display: "American Typewriter", "Courier Prime", "Courier New", ui-serif, serif;
+  --font-body:    "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  /* Scale */
+  --fs-display-xl: clamp(72px, 11vw, 168px);
+  --fs-display-l:  clamp(56px, 7vw, 104px);
+  --fs-display-m:  clamp(40px, 4.5vw, 72px);
+  --fs-h1:         clamp(36px, 4vw, 56px);
+  --fs-h2:         clamp(28px, 3vw, 40px);
+  --fs-h3:         22px;
+  --fs-eyebrow:    14px;
+  --fs-body-l:     20px;
+  --fs-body:       18px;
+  --fs-body-s:     16px;
+  --fs-caption:    14px;
+
+  --lh-display: 0.92;
+  --lh-tight:   1.1;
+  --lh-body:    1.55;
+  --lh-loose:   1.7;
+
+  --tracking-display: 0.01em;
+  --tracking-eyebrow: 0.18em;
+  --tracking-body:    0.005em;
+
+  /* Spacing */
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --radius-xs: 2px;
+  --radius-s:  6px;
+  --radius-m:  12px;
+  --radius-l:  20px;
+  --radius-pill: 999px;
+
+  --container-narrow: 720px;
+  --container:        1080px;
+  --container-wide:   1280px;
+
+  /* Elevation */
+  --shadow-1: 0 1px 2px rgba(74,46,26,0.06), 0 1px 1px rgba(74,46,26,0.04);
+  --shadow-2: 0 4px 14px rgba(74,46,26,0.08), 0 2px 4px rgba(74,46,26,0.04);
+  --shadow-3: 0 16px 40px rgba(74,46,26,0.12), 0 4px 8px rgba(74,46,26,0.06);
+  --shadow-press: inset 0 2px 4px rgba(74,46,26,0.18);
+
+  /* Motion */
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-warm: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-quick: 160ms;
+  --dur-base:  240ms;
+  --dur-slow:  420ms;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: var(--lh-body);
+  letter-spacing: var(--tracking-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-hover); }
+::selection { background: var(--primary); color: var(--color-creme); }
+
+/* ===== LAYOUT HELPERS ===== */
+.anoa-container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+.anoa-narrow { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+.anoa-section { padding: 112px 0; }
+
+/* ===== EYEBROW ===== */
+.anoa-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.anoa-eyebrow.center { text-align: center; }
+
+/* ===== DISPLAY TYPO ===== */
+.anoa-display-m {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.2vw, 60px);
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  margin: 0 0 24px;
+  color: var(--fg-1);
+}
+.anoa-lede {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--fg-2);
+  margin: 0 0 32px;
+}
+
+/* ===== CTA ===== */
+.anoa-cta-primary {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--color-creme);
+  padding: 16px 36px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow-2);
+  transition: background var(--dur-base) var(--ease-soft), transform var(--dur-quick) var(--ease-soft);
+}
+.anoa-cta-primary:hover { background: var(--primary-hover); color: var(--color-creme); }
+.anoa-cta-primary:active { transform: scale(0.98); box-shadow: var(--shadow-press); }
+
+/* ===== HEADER ===== */
+.anoa-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  transition: background var(--dur-base) var(--ease-soft), box-shadow var(--dur-base) var(--ease-soft);
+  background: transparent;
+}
+.anoa-header.scrolled {
+  background: rgba(250,246,240,0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-1);
+}
+.anoa-header-inner {
+  max-width: 1280px; margin: 0 auto; padding: 22px 32px;
+  display: flex; align-items: center; gap: 36px;
+}
+.anoa-wordmark {
+  font-family: var(--font-display); font-size: 28px;
+  letter-spacing: 0.02em; color: var(--fg-1);
+}
+.anoa-header:not(.scrolled) .anoa-wordmark,
+.anoa-header:not(.scrolled) .anoa-nav a { color: var(--color-creme); }
+.anoa-nav { display: flex; gap: 32px; flex: 1; }
+.anoa-nav a {
+  font-family: var(--font-body); font-weight: 700; font-size: 15px;
+  color: var(--fg-1); text-decoration: none; cursor: pointer;
+  padding: 6px 0; letter-spacing: 0.01em;
+  transition: color var(--dur-quick) var(--ease-soft);
+}
+.anoa-nav a.active { color: var(--primary); }
+.anoa-header.scrolled .anoa-nav a.active { color: var(--primary); }
+.anoa-header:not(.scrolled) .anoa-nav a.active { color: var(--color-creme); border-bottom: 2px solid var(--color-creme); }
+.anoa-cta-pill {
+  background: var(--primary); color: var(--color-creme);
+  padding: 10px 22px; border-radius: 999px;
+  font-family: var(--font-body); font-weight: 700; font-size: 14px;
+  text-decoration: none; cursor: pointer;
+  transition: background var(--dur-base) var(--ease-soft);
+}
+.anoa-cta-pill:hover { background: var(--primary-hover); color: var(--color-creme); }
+
+/* Burger */
+.anoa-burger {
+  background: none; border: none; padding: 6px; cursor: pointer;
+  color: var(--fg-1);
+  transition: color var(--dur-quick) var(--ease-soft);
+}
+.anoa-header:not(.scrolled) .anoa-burger { color: var(--color-creme); }
+
+/* ===== SIDEBAR ===== */
+.anoa-sidebar-overlay {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(26,26,26,0.45); backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-soft);
+}
+.anoa-sidebar-overlay.open { opacity: 1; pointer-events: auto; }
+.anoa-sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 100;
+  width: 340px; max-width: 85vw;
+  background: var(--bg); box-shadow: var(--shadow-3);
+  transform: translateX(-100%);
+  transition: transform var(--dur-slow) var(--ease-soft);
+  display: flex; flex-direction: column;
+}
+.anoa-sidebar.open { transform: translateX(0); }
+.anoa-sidebar-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 28px 24px; border-bottom: 1px solid var(--border);
+}
+.anoa-sidebar-header .anoa-wordmark { font-size: 32px; }
+.anoa-sidebar-close { background: none; border: none; padding: 6px; cursor: pointer; color: var(--fg-1); }
+.anoa-sidebar-nav { flex: 1; padding: 16px 0; display: flex; flex-direction: column; }
+.anoa-sidebar-link {
+  display: block; padding: 18px 28px;
+  font-family: var(--font-display); font-size: 26px;
+  color: var(--fg-1); text-decoration: none; cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: color var(--dur-quick) var(--ease-soft), background var(--dur-quick) var(--ease-soft);
+}
+.anoa-sidebar-link:hover { color: var(--primary); background: var(--bg-deep); }
+.anoa-sidebar-footer { padding: 24px 28px; border-top: 1px solid var(--border); }
+.anoa-sidebar-footer p { font-family: var(--font-display); font-size: 16px; color: var(--fg-3); margin: 0; font-style: italic; }
+
+/* ===== HERO ===== */
+.anoa-hero {
+  position: relative; height: 100vh; min-height: 720px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.anoa-hero-image {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.05);
+  animation: anoa-zoom 18s ease-out forwards;
+}
+@keyframes anoa-zoom { to { transform: scale(1); } }
+.anoa-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(26,26,26,0.55) 0%, rgba(26,26,26,0.25) 40%, rgba(26,26,26,0.65) 100%);
+}
+.anoa-hero-content {
+  position: relative; text-align: center;
+  color: var(--color-creme); max-width: 880px; padding: 0 32px;
+}
+.anoa-hero-content .anoa-eyebrow {
+  color: var(--color-creme); opacity: 0.85;
+  font-family: var(--font-body); font-weight: 700; font-size: 13px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.anoa-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(96px, 16vw, 220px);
+  margin: 24px 0 16px; line-height: 0.9;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  color: var(--color-creme);
+}
+.anoa-hero-baseline {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 30px);
+  color: var(--color-creme); opacity: 0.95;
+  margin: 0 0 36px; letter-spacing: 0.01em;
+}
+
+/* ===== MANIFESTO ===== */
+.anoa-manifesto { background: var(--bg); text-align: center; }
+.anoa-stanza { margin-bottom: 36px; opacity: 0; transform: translateY(12px); transition: opacity 600ms var(--ease-soft), transform 600ms var(--ease-soft); }
+.anoa-stanza.visible { opacity: 1; transform: translateY(0); }
+.anoa-stanza p {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.35; color: var(--fg-1);
+  margin: 0; letter-spacing: 0.005em;
+}
+.anoa-stanza.accent p em { color: var(--primary); font-style: italic; font-weight: 400; }
+
+/* ===== PRODUCT ===== */
+.anoa-product { background: var(--bg-deep); }
+.anoa-grid-2 {
+  max-width: 1180px; margin: 0 auto; padding: 0 32px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.anoa-product-media img {
+  width: 100%; border-radius: var(--radius-l);
+  box-shadow: var(--shadow-3); aspect-ratio: 4/5; object-fit: cover;
+}
+.anoa-feature-list { list-style: none; padding: 0; margin: 0 0 32px; }
+.anoa-feature-list li {
+  font-family: var(--font-body); font-weight: 600; font-size: 18px;
+  color: var(--fg-1); padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 14px;
+}
+.anoa-feature-list li:last-child { border: none; }
+.anoa-feature-list li span { color: var(--primary); font-family: var(--font-display); }
+
+/* ===== COLLECTION ===== */
+.anoa-collection { background: var(--bg); }
+.anoa-collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.anoa-card {
+  background: var(--surface); border-radius: var(--radius-l);
+  padding: 0 0 24px; overflow: hidden;
+  box-shadow: var(--shadow-2);
+  transition: box-shadow var(--dur-base) var(--ease-soft);
+}
+.anoa-card:hover { box-shadow: var(--shadow-3); }
+.anoa-card-img {
+  overflow: hidden; border-radius: var(--radius-l) var(--radius-l) 0 0;
+}
+.anoa-card-img img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block;
+  transition: transform 420ms var(--ease-soft);
+}
+.anoa-card:hover .anoa-card-img img { transform: scale(1.04); }
+.anoa-card h3 {
+  font-family: var(--font-display); font-size: 24px;
+  margin: 16px 0 6px; text-align: center; color: var(--fg-1);
+}
+.anoa-card p {
+  font-family: var(--font-body); font-size: 16px;
+  color: var(--fg-2); margin: 0; font-weight: 600; text-align: center;
+}
+
+/* ===== REASSURANCE ===== */
+.anoa-reassurance { background: var(--bg); }
+.anoa-pillars { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+.anoa-pillar { text-align: center; border-top: 2px solid var(--primary); padding-top: 28px; }
+.anoa-pillar h3 {
+  font-family: var(--font-display); font-size: 30px; line-height: 1;
+  margin: 0 0 14px; letter-spacing: 0.005em; color: var(--fg-1);
+}
+.anoa-pillar p {
+  font-family: var(--font-body); font-weight: 600; font-size: 17px;
+  line-height: 1.6; color: var(--fg-2); margin: 0;
+}
+
+/* ===== TESTIMONIAL ===== */
+.anoa-testimonial { background: var(--bg-deep); text-align: center; }
+.anoa-testimonial blockquote { margin: 0; }
+.anoa-testimonial blockquote p {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.3; color: var(--fg-1); margin: 0;
+}
+.anoa-testimonial cite {
+  display: block; margin-top: 28px;
+  font-family: var(--font-body); font-weight: 700; font-size: 14px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--primary); font-style: normal;
+}
+
+/* ===== IMAGE BAND ===== */
+.anoa-imageband {
+  height: 60vh; min-height: 460px;
+  background-size: cover; background-position: center;
+  display: flex; align-items: flex-end; position: relative;
+}
+.anoa-imageband::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(26,26,26,0.55) 100%);
+}
+.anoa-imageband-inner { position: relative; z-index: 1; padding: 0 0 56px 64px; }
+.anoa-imageband-quote {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 56px);
+  color: var(--color-creme); margin: 0; letter-spacing: 0.005em;
+}
+
+/* ===== COOKING CLASS ===== */
+.anoa-cooking { background: var(--bg-deep); }
+.anoa-cooking-img img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  border-radius: var(--radius-l); display: block;
+}
+
+/* ===== NEWSLETTER ===== */
+.anoa-newsletter { background: var(--bg); padding: 96px 0; text-align: center; }
+.anoa-form-inline {
+  margin-top: 36px; display: flex; gap: 12px;
+  max-width: 520px; margin-left: auto; margin-right: auto;
+}
+.anoa-form-inline input {
+  flex: 1; font-family: var(--font-body); font-weight: 600; font-size: 18px;
+  padding: 14px 18px; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--surface); color: var(--fg-1);
+  outline: none;
+  transition: border-color var(--dur-base) var(--ease-soft), box-shadow var(--dur-base) var(--ease-soft);
+}
+.anoa-form-inline input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(119,68,31,0.18); }
+.anoa-nl-success {
+  margin-top: 24px; font-family: var(--font-display); font-size: 24px; color: var(--primary);
+  opacity: 0; transition: opacity 400ms var(--ease-soft);
+}
+.anoa-nl-success.show { opacity: 1; }
+
+/* ===== FOOTER ===== */
+.anoa-footer { background: var(--color-noir); color: var(--color-creme); padding: 72px 0 32px; }
+.anoa-footer-inner {
+  max-width: 1180px; margin: 0 auto; padding: 0 32px;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 80px;
+}
+.anoa-footer .anoa-wordmark { color: var(--color-creme); font-size: 56px; }
+.anoa-footer-tagline {
+  font-family: var(--font-display); font-size: 20px;
+  color: var(--color-creme); opacity: 0.7; margin: 12px 0 0;
+}
+.anoa-footer-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.anoa-footer-cols .anoa-eyebrow { color: var(--primary-soft); margin-bottom: 14px; }
+.anoa-footer-cols a {
+  display: block; padding: 6px 0;
+  font-family: var(--font-body); font-weight: 600; font-size: 15px;
+  color: var(--color-creme); opacity: 0.85; text-decoration: none; cursor: pointer;
+}
+.anoa-footer-cols a:hover { opacity: 1; color: var(--primary-tint); }
+.anoa-footer-base {
+  max-width: 1180px; margin: 56px auto 0; padding: 24px 32px 0;
+  border-top: 1px solid rgba(250,246,240,0.12);
+  font-family: var(--font-body); font-weight: 600; font-size: 13px;
+  color: var(--color-creme); opacity: 0.5;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+
+/* ===== MODAL ===== */
+.anoa-modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 300ms var(--ease-soft);
+}
+.anoa-modal-overlay.open { opacity: 1; pointer-events: auto; }
+.anoa-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(26,26,26,0.45); backdrop-filter: blur(2px);
+}
+.anoa-modal-card {
+  position: relative; background: var(--bg);
+  border-radius: var(--radius-l); padding: 48px;
+  max-width: 520px; width: 90%;
+  box-shadow: var(--shadow-3);
+  transform: translateY(20px) scale(0.96);
+  transition: transform 350ms var(--ease-warm);
+}
+.anoa-modal-overlay.open .anoa-modal-card { transform: translateY(0) scale(1); }
+.anoa-modal-close {
+  position: absolute; top: 20px; right: 20px;
+  background: none; border: none; cursor: pointer; color: var(--fg-1);
+  padding: 4px; width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--dur-quick) var(--ease-soft);
+}
+.anoa-modal-close:hover { background: var(--bg-deep); }
+
+.anoa-modal-prod-row { display: flex; gap: 16px; align-items: center; margin-bottom: 32px; }
+.anoa-modal-prod-img {
+  width: 120px; height: 120px; object-fit: cover;
+  border-radius: var(--radius-m); flex-shrink: 0;
+}
+.anoa-modal-prod-name { margin: 0 0 8px; font-weight: 700; font-size: 18px; }
+.anoa-modal-prod-desc { margin: 0; color: var(--fg-2); font-size: 16px; }
+.anoa-modal-prod-price {
+  margin: 8px 0 0; font-family: var(--font-display);
+  font-size: 24px; color: var(--primary);
+}
+
+.anoa-qty-row { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+.anoa-qty-label { font-weight: 700; }
+.anoa-qty-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid var(--border); background: var(--surface);
+  cursor: pointer; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--fg-1);
+  transition: border-color var(--dur-quick) var(--ease-soft);
+}
+.anoa-qty-btn:hover { border-color: var(--primary); }
+.anoa-qty-val {
+  font-family: var(--font-display); font-size: 22px;
+  min-width: 28px; text-align: center;
+}
+
+.anoa-modal-input {
+  width: 100%; font-family: var(--font-body); font-weight: 600; font-size: 17px;
+  padding: 14px 18px; border-radius: var(--radius-m);
+  border: 1.5px solid var(--border); background: var(--surface); color: var(--fg-1);
+  outline: none;
+  transition: border-color var(--dur-base) var(--ease-soft);
+}
+.anoa-modal-input:focus { border-color: var(--primary); }
+.anoa-modal-input + .anoa-modal-input { margin-top: 14px; }
+
+.anoa-modal-btn-row { display: flex; gap: 12px; margin-top: 28px; }
+.anoa-modal-btn-back {
+  flex: 1; padding: 14px 0; border-radius: 999px;
+  border: 1.5px solid var(--border); background: transparent;
+  font-family: var(--font-body); font-weight: 700; font-size: 15px;
+  cursor: pointer; color: var(--fg-1);
+  transition: border-color var(--dur-quick) var(--ease-soft);
+}
+.anoa-modal-btn-back:hover { border-color: var(--primary); }
+
+.anoa-modal-success { text-align: center; padding: 24px 0; }
+.anoa-modal-success-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--primary-tint);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+}
+.anoa-modal-success h3 {
+  font-family: var(--font-display); font-size: 28px; margin: 0 0 12px;
+}
+.anoa-modal-success p {
+  color: var(--fg-2); font-size: 17px; margin: 0 0 28px; line-height: 1.6;
+}
+
+/* ===== FADE-IN SECTIONS ===== */
+.anoa-fade { opacity: 0; transform: translateY(16px); transition: opacity 600ms var(--ease-soft), transform 600ms var(--ease-soft); }
+.anoa-fade.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 880px) {
+  .anoa-grid-2 { grid-template-columns: 1fr; gap: 40px; }
+  .anoa-pillars { grid-template-columns: 1fr; gap: 32px; }
+  .anoa-collection-grid { grid-template-columns: 1fr; gap: 24px; }
+  .anoa-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .anoa-footer-cols { grid-template-columns: 1fr; gap: 24px; }
+  .anoa-section { padding: 72px 0; }
+  .anoa-nav { display: none; }
+  .anoa-hero { min-height: 560px; }
+  .anoa-hero-title { font-size: clamp(64px, 14vw, 120px); }
+  .anoa-imageband { height: 40vh; min-height: 280px; }
+  .anoa-imageband-inner { padding: 0 0 32px 32px; }
+  .anoa-newsletter { padding: 72px 0; }
+  .anoa-form-inline { flex-direction: column; padding: 0 16px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="anoa-header" id="anoa-header">
+  <div class="anoa-header-inner">
+    <button class="anoa-burger" id="burger-btn" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="anoa-wordmark">ANOA</div>
+    <nav class="anoa-nav">
+      <a href="#histoire" data-nav="histoire">Notre histoire</a>
+      <a href="#objet" data-nav="objet" class="active">Le produit</a>
+      <a href="#catalogue" data-nav="catalogue">Catalogue</a>
+      <a href="#journal" data-nav="journal">Journal</a>
+      <a href="https://www.instagram.com/anoa_brussels?igsh=ZjZ2MDh5bWxqeHUx" target="_blank" rel="noopener noreferrer" data-nav="contact">Contact</a>
+    </nav>
+    <a class="anoa-cta-pill" id="header-order-btn">Commander</a>
+  </div>
+</header>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="anoa-sidebar-overlay" id="sidebar-overlay"></div>
+<aside class="anoa-sidebar" id="sidebar">
+  <div class="anoa-sidebar-header">
+    <div class="anoa-wordmark">ANOA</div>
+    <button class="anoa-sidebar-close" id="sidebar-close" aria-label="Fermer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="anoa-sidebar-nav">
+    <a class="anoa-sidebar-link" href="#histoire">Notre histoire</a>
+    <a class="anoa-sidebar-link" href="#objet">Le produit</a>
+    <a class="anoa-sidebar-link" href="#catalogue">Catalogue</a>
+    <a class="anoa-sidebar-link" href="#journal">Journal</a>
+    <a class="anoa-sidebar-link" href="https://www.instagram.com/anoa_brussels?igsh=ZjZ2MDh5bWxqeHUx" target="_blank" rel="noopener noreferrer">Contact</a>
+  </nav>
+  <div class="anoa-sidebar-footer">
+    <p>La confiance au bout des doigts.</p>
+  </div>
+</aside>
+
+<!-- ===== HERO ===== -->
+<section class="anoa-hero" id="hero">
+  <div class="anoa-hero-image" style="background-image: url('Anoa/assets/couple-spatule.png')"></div>
+  <div class="anoa-hero-overlay"></div>
+  <div class="anoa-hero-content">
+    <div class="anoa-eyebrow">Une spatule, pens&eacute;e autrement</div>
+    <h1 class="anoa-hero-title">ANOA</h1>
+    <p class="anoa-hero-baseline">La confiance au bout des doigts.</p>
+    <a class="anoa-cta-primary" href="#objet">D&eacute;couvrir l'objet</a>
+  </div>
+</section>
+
+<!-- ===== MANIFESTE ===== -->
+<section class="anoa-section anoa-manifesto" id="histoire">
+  <div class="anoa-narrow">
+    <div class="anoa-stanza"><p>Certains gestes semblent &eacute;vidents,</p><p>ancr&eacute;s dans le quotidien.</p><p>Puis, un jour,</p><p>ils demandent plus d'attention.</p></div>
+    <div class="anoa-stanza"><p>Pas parce que l'envie dispara&icirc;t,</p><p>mais parce que les objets ne suivent plus vraiment.</p></div>
+    <div class="anoa-stanza accent"><p>Chez ANOA, nous avons choisi de repenser ces objets.</p><p><em>Une spatule, pens&eacute;e autrement.</em></p></div>
+    <div class="anoa-stanza"><p>Imaginer des formes plus justes,</p><p>plus stables, plus rassurantes.</p><p>Un objet con&ccedil;u pour accompagner le geste,</p><p>le soutenir,</p><p>et lui redonner sa simplicit&eacute;.</p></div>
+  </div>
+</section>
+
+<!-- ===== PRODUIT ===== -->
+<section class="anoa-section anoa-product" id="objet">
+  <div class="anoa-grid-2">
+    <div class="anoa-product-media anoa-fade">
+      <img src="Anoa/assets/spatule-tray.png" alt="Spatule ANOA sur plat de service" />
+    </div>
+    <div class="anoa-fade" style="transition-delay: 200ms">
+      <div class="anoa-eyebrow">LE PRODUIT</div>
+      <h2 class="anoa-display-m">Plus qu'un simple ustensile,<br>un compagnon.</h2>
+      <p class="anoa-lede">Imaginer des formes plus justes, plus stables, plus rassurantes. Un objet con&ccedil;u pour accompagner le geste, le soutenir, et lui redonner sa simplicit&eacute;.</p>
+      <ul class="anoa-feature-list">
+        <li><span>—</span> Manche en bois huil&eacute;, &eacute;quilibre &eacute;tudi&eacute; pour la paume</li>
+        <li><span>—</span> Capteur de temp&eacute;rature, lecture en grands chiffres</li>
+        <li><span>—</span> T&ecirc;te arrondie, con&ccedil;ue pour ne jamais glisser</li>
+      </ul>
+      <a class="anoa-cta-primary" href="#catalogue">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLLECTION ===== -->
+<section class="anoa-section anoa-collection" id="catalogue">
+  <div class="anoa-container">
+    <div class="anoa-eyebrow center">La collection</div>
+    <h2 class="anoa-display-m" style="text-align:center; margin-bottom:56px">Les objets ANOA</h2>
+    <div class="anoa-collection-grid">
+      <div class="anoa-card">
+        <div class="anoa-card-img"><img src="Anoa/assets/spatule-tray.png" alt="La spatule ANOA" /></div>
+        <h3>La spatule</h3>
+        <p>Capteur de temp&eacute;rature, manche pond&eacute;r&eacute;.</p>
+      </div>
+      <div class="anoa-card">
+        <div class="anoa-card-img"><img src="Anoa/assets/apron-anoa.png" alt="Le tablier ANOA" /></div>
+        <h3>Le tablier</h3>
+        <p>Lin brut, broderie terre cuite.</p>
+      </div>
+      <div class="anoa-card">
+        <div class="anoa-card-img"><img src="Anoa/assets/towels-anoa-vertical.png" alt="Les torchons ANOA" /></div>
+        <h3>Les torchons</h3>
+        <p>Coton tiss&eacute;, motif ANOA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REASSURANCE ===== -->
+<section class="anoa-section anoa-reassurance">
+  <div class="anoa-container">
+    <div class="anoa-eyebrow center">Trois choses, et rien de plus</div>
+    <div class="anoa-pillars">
+      <div class="anoa-pillar"><h3>Justesse</h3><p>Une forme dessin&eacute;e pour la main, pas pour l'&eacute;tag&egrave;re du magasin.</p></div>
+      <div class="anoa-pillar"><h3>Stabilit&eacute;</h3><p>Un poids pos&eacute;, un manche qui tient — la spatule ne fuit jamais le geste.</p></div>
+      <div class="anoa-pillar"><h3>Simplicit&eacute;</h3><p>Aucune notice. On la prend, on cuisine. Le reste vient seul.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIAL ===== -->
+<section class="anoa-section anoa-testimonial">
+  <div class="anoa-narrow">
+    <blockquote>
+      <p>&laquo;&nbsp;Un objet qui accompagne, rassure et redonne confiance dans ces gestes simples qui comptent tant.&nbsp;&raquo;</p>
+    </blockquote>
+    <cite>— La promesse ANOA</cite>
+  </div>
+</section>
+
+<!-- ===== IMAGE BAND ===== -->
+<section class="anoa-imageband" style="background-image: url('Anoa/assets/family-table.png')">
+  <div class="anoa-imageband-inner">
+    <p class="anoa-imageband-quote">La table, retrouv&eacute;e.</p>
+  </div>
+</section>
+
+<!-- ===== ATELIERS ===== -->
+<section class="anoa-section anoa-cooking" id="journal">
+  <div class="anoa-grid-2">
+    <div>
+      <div class="anoa-eyebrow">ATELIERS</div>
+      <h2 class="anoa-display-m">Les ateliers ANOA</h2>
+      <p class="anoa-lede">Cuisiner ensemble, retrouver les gestes, partager un moment. Nos ateliers accueillent celles et ceux qui veulent reprendre confiance, &agrave; leur rythme.</p>
+      <a class="anoa-cta-primary" href="#newsletter">Voir les dates</a>
+    </div>
+    <div class="anoa-cooking-img">
+      <img src="Anoa/assets/cooking-class-anoa.png" alt="Atelier cuisine ANOA" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="anoa-newsletter" id="newsletter">
+  <div class="anoa-narrow" style="text-align:center">
+    <h3 class="anoa-display-m">Recevoir le journal ANOA</h3>
+    <p class="anoa-lede">Quelques lettres par an. Sur les gestes, les mains, et les objets qui les accompagnent.</p>
+    <form class="anoa-form-inline" id="nl-form">
+      <input type="email" placeholder="votre adresse e-mail" required id="nl-email" />
+      <button type="submit" class="anoa-cta-primary">M'inscrire</button>
+    </form>
+    <p class="anoa-nl-success" id="nl-success">Merci. &Agrave; tr&egrave;s bient&ocirc;t.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="anoa-footer">
+  <div class="anoa-footer-inner">
+    <div class="anoa-footer-brand">
+      <div class="anoa-wordmark">ANOA</div>
+      <p class="anoa-footer-tagline">La confiance au bout des doigts.</p>
+    </div>
+    <div class="anoa-footer-cols">
+      <nav>
+        <div class="anoa-eyebrow">LE PRODUIT</div>
+        <a href="#objet">La spatule</a>
+        <a href="#catalogue">Le linge de cuisine</a>
+        <a href="#catalogue">Le tablier</a>
+      </nav>
+      <nav>
+        <div class="anoa-eyebrow">La maison</div>
+        <a href="#histoire">L'histoire</a>
+        <a href="#journal">Journal</a>
+        <a href="https://www.instagram.com/anoa_brussels?igsh=ZjZ2MDh5bWxqeHUx" target="_blank" rel="noopener noreferrer">Nous &eacute;crire</a>
+      </nav>
+      <nav>
+        <div class="anoa-eyebrow">Pratique</div>
+        <a href="#">Livraison</a>
+        <a href="#">Mentions l&eacute;gales</a>
+        <a href="#">CGV</a>
+      </nav>
+    </div>
+  </div>
+  <div class="anoa-footer-base">&copy; ANOA &middot; 2026 &middot; Con&ccedil;u en France</div>
+</footer>
+
+<!-- ===== MODAL 3 ETAPES ===== -->
+<div class="anoa-modal-overlay" id="order-modal">
+  <div class="anoa-modal-backdrop" id="modal-backdrop"></div>
+  <div class="anoa-modal-card">
+    <button class="anoa-modal-close" id="modal-close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+
+    <!-- Step 1: Produit -->
+    <div id="modal-step-1">
+      <div class="anoa-eyebrow" style="margin-bottom:12px">Commander</div>
+      <h3 style="font-family:var(--font-display); font-size:32px; margin:0 0 24px">La spatule ANOA</h3>
+      <div class="anoa-modal-prod-row">
+        <img class="anoa-modal-prod-img" src="Anoa/assets/spatule-tray.png" alt="Spatule ANOA" />
+        <div>
+          <p class="anoa-modal-prod-name">Spatule intelligente</p>
+          <p class="anoa-modal-prod-desc">Manche bois huil&eacute; &middot; Capteur int&eacute;gr&eacute;</p>
+          <p class="anoa-modal-prod-price">89&nbsp;&euro;</p>
+        </div>
+      </div>
+      <div class="anoa-qty-row">
+        <span class="anoa-qty-label">Quantit&eacute;</span>
+        <button class="anoa-qty-btn" id="qty-minus">&minus;</button>
+        <span class="anoa-qty-val" id="qty-val">1</span>
+        <button class="anoa-qty-btn" id="qty-plus">+</button>
+      </div>
+      <button class="anoa-cta-primary" style="width:100%; text-align:center" id="modal-continue">Continuer — <span id="modal-total">89</span>&nbsp;&euro;</button>
+    </div>
+
+    <!-- Step 2: Livraison -->
+    <div id="modal-step-2" style="display:none">
+      <div class="anoa-eyebrow" style="margin-bottom:12px">Livraison</div>
+      <h3 style="font-family:var(--font-display); font-size:28px; margin:0 0 24px">Vos coordonn&eacute;es</h3>
+      <input class="anoa-modal-input" placeholder="Nom complet" id="f-name" />
+      <input class="anoa-modal-input" placeholder="Adresse e-mail" id="f-email" />
+      <input class="anoa-modal-input" placeholder="Adresse" id="f-address" />
+      <input class="anoa-modal-input" placeholder="Ville, code postal" id="f-city" />
+      <div class="anoa-modal-btn-row">
+        <button class="anoa-modal-btn-back" id="modal-back">Retour</button>
+        <button class="anoa-cta-primary" style="flex:2; text-align:center" id="modal-confirm">Confirmer</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Confirmation -->
+    <div id="modal-step-3" style="display:none">
+      <div class="anoa-modal-success">
+        <div class="anoa-modal-success-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h3>Merci.</h3>
+        <p>Votre commande a &eacute;t&eacute; enregistr&eacute;e.<br>Nous vous &eacute;crirons tr&egrave;s bient&ocirc;t.</p>
+        <button class="anoa-cta-primary" id="modal-done" style="text-align:center">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ===== HEADER SCROLL ===== */
+  var header = document.getElementById('anoa-header');
+  window.addEventListener('scroll', function() {
+    header.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  /* ===== NAV ACTIVE HIGHLIGHT ===== */
+  var navLinks = document.querySelectorAll('.anoa-nav a[data-nav]');
+  var sectionIds = ['histoire', 'objet', 'catalogue', 'journal'];
+  window.addEventListener('scroll', function() {
+    var current = '';
+    sectionIds.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) current = id;
+    });
+    navLinks.forEach(function(a) {
+      var nav = a.getAttribute('data-nav');
+      if (nav !== 'contact') {
+        a.classList.toggle('active', nav === current);
+      }
+    });
+  });
+
+  /* ===== SIDEBAR ===== */
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebar-overlay');
+  var sidebarLinks = sidebar.querySelectorAll('.anoa-sidebar-link');
+
+  function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+  function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+
+  document.getElementById('burger-btn').addEventListener('click', openSidebar);
+  document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  sidebarLinks.forEach(function(link) {
+    link.addEventListener('click', function() { closeSidebar(); });
+  });
+
+  /* ===== MANIFESTO FADE-IN ===== */
+  var stanzas = document.querySelectorAll('.anoa-stanza');
+  var manifObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var idx = Array.prototype.indexOf.call(stanzas, entry.target);
+        setTimeout(function() { entry.target.classList.add('visible'); }, idx * 200);
+        manifObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  stanzas.forEach(function(s) { manifObs.observe(s); });
+
+  /* ===== GENERIC FADE-IN ===== */
+  var fadeEls = document.querySelectorAll('.anoa-fade');
+  var fadeObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  fadeEls.forEach(function(el) { fadeObs.observe(el); });
+
+  /* ===== NEWSLETTER ===== */
+  var nlForm = document.getElementById('nl-form');
+  var nlSuccess = document.getElementById('nl-success');
+  nlForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    nlForm.style.display = 'none';
+    nlSuccess.classList.add('show');
+  });
+
+  /* ===== ORDER MODAL ===== */
+  var modal = document.getElementById('order-modal');
+  var step1 = document.getElementById('modal-step-1');
+  var step2 = document.getElementById('modal-step-2');
+  var step3 = document.getElementById('modal-step-3');
+  var qty = 1;
+  var price = 89;
+
+  function showStep(n) {
+    step1.style.display = n === 1 ? 'block' : 'none';
+    step2.style.display = n === 2 ? 'block' : 'none';
+    step3.style.display = n === 3 ? 'block' : 'none';
+  }
+
+  function openModal() {
+    qty = 1;
+    document.getElementById('qty-val').textContent = '1';
+    document.getElementById('modal-total').textContent = '89';
+    showStep(1);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('header-order-btn').addEventListener('click', function(e) { e.preventDefault(); openModal(); });
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+
+  document.getElementById('qty-minus').addEventListener('click', function() {
+    qty = Math.max(1, qty - 1);
+    document.getElementById('qty-val').textContent = qty;
+    document.getElementById('modal-total').textContent = qty * price;
+  });
+  document.getElementById('qty-plus').addEventListener('click', function() {
+    qty++;
+    document.getElementById('qty-val').textContent = qty;
+    document.getElementById('modal-total').textContent = qty * price;
+  });
+
+  document.getElementById('modal-continue').addEventListener('click', function() { showStep(2); });
+  document.getElementById('modal-back').addEventListener('click', function() { showStep(1); });
+  document.getElementById('modal-confirm').addEventListener('click', function() { showStep(3); });
+  document.getElementById('modal-done').addEventListener('click', closeModal);
+
+  /* Escape key */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (modal.classList.contains('open')) closeModal();
+      if (sidebar.classList.contains('open')) closeSidebar();
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
